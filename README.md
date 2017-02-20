@@ -26,7 +26,7 @@ services:
     image: postgres:9.6-alpine
 
   pgpool2:
-    image: manuc66/pgpool2-container-alpine:latest
+    image: ca0abinary/pgpool2-container:latest
     depends_on: 
       - mypostgres
     environment:
