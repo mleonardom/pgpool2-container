@@ -22,7 +22,9 @@ RUN apk --update --no-cache add libpq=${PG_VERSION} postgresql-dev=${PG_VERSION}
     make && \
     make install && \
     rm -rf /tmp/pgpool-II-${PGPOOL_VERSION} && \
-    apk del postgresql-dev linux-headers gcc make libgcc g++
+    apk del postgresql-dev linux-headers gcc make libgcc g++ \
+    wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/1.2/gosu-amd64" \
+    chmod +x /usr/local/bin/gosu
 
 RUN pip install Jinja2
 
