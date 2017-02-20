@@ -10,7 +10,7 @@ ENV LANG en_US.utf8
     
 RUN apk --update --no-cache add libpq=${PG_VERSION} postgresql-dev=${PG_VERSION} postgresql-client=${PG_VERSION} \
                                 linux-headers gcc make libgcc g++ \
-                                libffi-dev python python-dev py2-pip libffi-dev && \
+                                libffi-dev python python-dev py2-pip libffi-dev curl && \
     cd /tmp && \ 
     wget http://www.pgpool.net/mediawiki/images/pgpool-II-${PGPOOL_VERSION}.tar.gz -O - | tar -xz && \
     chown root:root -R /tmp/pgpool-II-${PGPOOL_VERSION} && \
@@ -22,9 +22,9 @@ RUN apk --update --no-cache add libpq=${PG_VERSION} postgresql-dev=${PG_VERSION}
     make && \
     make install && \
     rm -rf /tmp/pgpool-II-${PGPOOL_VERSION} && \
-    apk del postgresql-dev linux-headers gcc make libgcc g++ \
-    wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/1.2/gosu-amd64" \
-    chmod +x /usr/local/bin/gosu
+    curl -o /usr/local/bin/gosu -sSL "https://github.com/tianon/gosu/releases/download/1.2/gosu-amd64" && \
+    chmod +x /usr/local/bin/gosu && \
+    apk del postgresql-dev linux-headers gcc make libgcc g++ curl
 
 RUN pip install Jinja2
 
