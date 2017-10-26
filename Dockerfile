@@ -4,7 +4,7 @@ FROM alpine:edge
 
 ENV PGPOOL_VERSION 3.6.1
 
-ENV PG_VERSION 9.6.2-r1
+ENV PG_VERSION 9.6.5-r0
 
 ENV LANG en_US.utf8
     

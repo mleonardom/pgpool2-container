@@ -6,17 +6,17 @@ from subprocess import check_call
 import hashlib
 import os
 
-def updateConfValue( envKey, confKey, default ):
+def updateConfValue( configuration, envKey, confKey, default ):
 	value = os.getenv(envKey, default)
 	configuration.update({ confKey: value })
 
 def pgpool_get_configuration():
 	configuration = { }
 	# Get the port pcp should listen on.
-	updateConfValue('PCP_PORT', 'pcp_port', 9898)
+	updateConfValue(configuration, 'PCP_PORT', 'pcp_port', 9898)
 
 	# Get the PCP user.
-	updateConfValue('PCP_USER', 'pcp_user', 'postgres')
+	updateConfValue(configuration, 'PCP_USER', 'pcp_user', 'postgres')
 
 	# Get the PCP user password.
 	value = os.getenv('PCP_USER_PASSWORD', 'bettervoice')
@@ -25,14 +25,14 @@ def pgpool_get_configuration():
 	configuration.update({ 'pcp_user_password': hash.hexdigest() })
 
 	# Get the port pgpool should listen on.
-	updateConfValue('PGPOOL_PORT', 'pgpool_port', 5432)
+	updateConfValue(configuration, 'PGPOOL_PORT', 'pgpool_port', 5432)
 
 	# Get Pool size data
-	updateConfValue('NUM_INIT_CHILDREN', 'num_init_children', 700)
-	updateConfValue('CHILD_LIFE_TIME', 'child_life_time', 0)
-	updateConfValue('CHILD_MAX_CONNECTIONS', 'child_max_connections', 0)
-	updateConfValue('CONNECTION_LIFE_TIME', 'connection_life_time', 30)
-	updateConfValue('CLIENT_IDLE_LIMIT', 'client_idle_limit', 30)
+	updateConfValue(configuration, 'NUM_INIT_CHILDREN', 'num_init_children', 700)
+	updateConfValue(configuration, 'CHILD_LIFE_TIME', 'child_life_time', 0)
+	updateConfValue(configuration, 'CHILD_MAX_CONNECTIONS', 'child_max_connections', 0)
+	updateConfValue(configuration, 'CONNECTION_LIFE_TIME', 'connection_life_time', 30)
+	updateConfValue(configuration, 'CLIENT_IDLE_LIMIT', 'client_idle_limit', 30)
 
 	# Get the configuration for the backends.
 	# FORMAT - INDEX:HOST:PORT
